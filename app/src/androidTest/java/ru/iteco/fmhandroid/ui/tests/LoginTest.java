@@ -1,23 +1,22 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.Epic;
 import io.qameta.allure.kotlin.Feature;
-import io.qameta.allure.kotlin.junit4.AllureJunit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
+import ru.iteco.fmhandroid.ui.data.DataHelper;
 import ru.iteco.fmhandroid.ui.page.LoginPage;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
 @Epic("Авторизация")
 @Feature("Форма входа в систему")
 
@@ -40,7 +39,7 @@ public class LoginTest  {
     @DisplayName("Успешная авторизация")
     @Description("Вход в систему с валидными данными: login2/password2")
     public void successfulAuthorization_1() {
-        loginPage.logInToTheSystem("login2", "password2");
+        loginPage.logInToTheSystem(DataHelper.getValidLogin(), DataHelper.getValidPassword());
         loginPage.verifyTextIsVisible(LoginPage.MAIN_SCREEN_TITLE);
     }
 

@@ -11,16 +11,15 @@ plugins {
 
 android {
     compileSdkVersion 32
-    buildToolsVersion "32.0.0"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "ru.iteco.fmhandroid"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArgument "listener", "io.qameta.allure.kotlin.junit4.AllureJunit4"
     }
 
     compileOptions {
@@ -93,23 +92,13 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-
-    // Тестовый манифест для запуска UI-тестов на Android 12 (SDK 32)
-    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-
-    // Espresso Core и Contrib (версия 3.4.0 стабильна для appcompat 1.4.1)
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
-
-    // Библиотека Hamcrest (для Matcher, withId, isDisplayed на строках 16, 30, 31)
-    androidTestImplementation 'org.hamcrest:hamcrest-library:2.2'
-
-    // Allure Kotlin для Android (версия 2.3.0 не требует Java 11/17 для сборки)
-    androidTestImplementation 'io.qameta.allure:allure-kotlin-model:2.3.0'
-    androidTestImplementation 'io.qameta.allure:allure-kotlin-commons:2.3.0'
-
-    // Специальный плагин Allure для JUnit4, который автоматически делает скриншоты при падении!
-    androidTestImplementation 'io.qameta.allure:allure-kotlin-junit4:2.3.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'org.hamcrest:hamcrest:2.2'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-android:2.4.0'
+    androidTestImplementation 'io.qameta.allure:allure-kotlin-junit4:2.4.0'
 }
