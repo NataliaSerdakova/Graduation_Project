@@ -24,12 +24,11 @@ import ru.iteco.fmhandroid.ui.page.NewsSectionPage;
 
 public class NavigationTest {
 
-    @Rule
-    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
-
     private final NavigationPage navigationPage = new NavigationPage();
     private final LoginPage loginPage = new LoginPage();
     private final NewsSectionPage newsSectionPage = new NewsSectionPage();
+    @Rule
+    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void setUp() {

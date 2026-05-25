@@ -15,6 +15,9 @@ import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class NewsFilterPage extends BasePage {
+
+    public static final String FILTER_SCREEN_TITLE = "Filter news";
+    public static final String ERROR_WRONG_PERIOD = "Wrong period";
     private final int filterTitleId = R.id.filter_news_title_text_view;
     private final int categoryFieldId = R.id.news_item_category_text_auto_complete_text_view;
     private final int dateStartId = R.id.news_item_publish_date_start_text_input_edit_text;
@@ -25,7 +28,7 @@ public class NewsFilterPage extends BasePage {
     public void checkFilterFormIsLoaded() {
         Allure.step("Проверка: форма фильтрации новостей загружена");
         onView(isRoot()).perform(waitDisplayed(filterTitleId, SHORT_TIMEOUT));
-        onView(withId(filterTitleId)).check(matches(withText("Filter news")));
+        onView(withId(filterTitleId)).check(matches(withText(FILTER_SCREEN_TITLE)));
         onView(withId(categoryFieldId)).check(matches(isDisplayed()));
         onView(withId(dateStartId)).check(matches(isDisplayed()));
         onView(withId(dateEndId)).check(matches(isDisplayed()));
@@ -64,7 +67,7 @@ public class NewsFilterPage extends BasePage {
 
     public void checkWrongPeriodError() {
         Allure.step("Проверка появления ошибки 'Wrong period'");
-        onView(withText("Wrong period")).check(matches(isDisplayed()));
+        onView(withText(ERROR_WRONG_PERIOD)).check(matches(isDisplayed()));
         onView(withId(android.R.id.button1)).perform(click());
     }
 

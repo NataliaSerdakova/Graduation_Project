@@ -25,7 +25,6 @@ public class LoginTest  {
     @Rule
     public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
-
     private final LoginPage loginPage = new LoginPage();
 
     @Before
@@ -109,7 +108,7 @@ public class LoginTest  {
 
     @Test
     @DisplayName("Успешный выход из системы")
-    @Description("Авторизация и последующий логаут с проверкой возврата на экран логина")
+    @Description("Авторизация и последующий выход с проверкой возврата на экран логина")
     public void successfulLogout_18() {
         loginPage.ensureLoggedIn("login2", "password2");
         loginPage.logout();

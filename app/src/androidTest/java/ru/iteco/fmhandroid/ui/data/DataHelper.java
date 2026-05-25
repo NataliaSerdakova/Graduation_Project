@@ -6,20 +6,19 @@ import java.util.Random;
 
 public class DataHelper {
 
-        private static final String VALID_LOGIN = "login2";
-        private static final String VALID_PASSWORD = "password2";
-
-        public static String getValidLogin() {
-            return VALID_LOGIN;
-        }
-
-        public static String getValidPassword() {
-            return VALID_PASSWORD;
-        }
-
     public static final String[] CATEGORIES = {
             "Объявление", "День рождения", "Зарплата", "Профсоюз", "Праздник", "Массаж", "Благодарность", "Нужна помощь"
     };
+    private static final String VALID_LOGIN = "login2";
+    private static final String VALID_PASSWORD = "password2";
+
+    public static String getValidLogin() {
+        return VALID_LOGIN;
+    }
+
+    public static String getValidPassword() {
+        return VALID_PASSWORD;
+    }
 
     public static String getRandomCategory() {
         return CATEGORIES[new Random().nextInt(CATEGORIES.length)];

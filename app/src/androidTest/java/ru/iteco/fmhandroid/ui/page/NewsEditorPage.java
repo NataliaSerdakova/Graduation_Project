@@ -23,12 +23,16 @@ import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import org.hamcrest.Matcher;
 import java.time.LocalDate;
-
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class NewsEditorPage extends BasePage {
 
+    public static final String CREATING_SCREEN_TITLE = "Creating";
+    public static final String EDITING_SCREEN_TITLE = "Editing";
+    public static final String EMPTY_FIELDS_ERROR = "Fill empty fields";
+    public static final String CANCEL_DIALOG_TEXT = "The changes won't be saved, do you really want to log out?";
+    public static final String ERROR_SAVING_FAILED = "Saving failed. Try again later.";
     private final CalendarPage calendarPage = new CalendarPage();
     private final TimePage timePage = new TimePage();
     private final int categoryFieldId = R.id.news_item_category_text_auto_complete_text_view;
@@ -41,14 +45,13 @@ public class NewsEditorPage extends BasePage {
     private final int switcherId = R.id.switcher;
     private final int titleInputLayoutId = R.id.news_item_title_text_input_layout;
     private final int descriptionLayoutId = R.id.news_item_description_text_input_layout;
-    public static final String EMPTY_FIELDS_ERROR = "Fill empty fields";
 
 
 
     public void checkAddNewsFormIsLoaded() {
         Allure.step("Проверка: форма создания новости загружена");
         onView(isRoot()).perform(waitDisplayed(titleFieldId, SHORT_TIMEOUT));
-        onView(withText("Creating")).check(matches(isDisplayed()));
+        onView(withText(CREATING_SCREEN_TITLE)).check(matches(isDisplayed()));
         onView(withId(categoryFieldId)).check(matches(isDisplayed()));
         onView(withId(titleFieldId)).check(matches(isDisplayed()));
         onView(withId(dateFieldId)).check(matches(isDisplayed()));
@@ -62,7 +65,7 @@ public class NewsEditorPage extends BasePage {
     public void checkEditNewsFormIsLoaded() {
         Allure.step("Проверка: форма редактирования новости загружена");
         onView(isRoot()).perform(waitDisplayed(titleFieldId, SHORT_TIMEOUT));
-        onView(withText("Editing")).check(matches(isDisplayed()));
+        onView(withText(EDITING_SCREEN_TITLE)).check(matches(isDisplayed()));
         onView(withId(categoryFieldId)).check(matches(isDisplayed()));
         onView(withId(titleFieldId)).check(matches(isDisplayed()));
         onView(withId(dateFieldId)).check(matches(isDisplayed()));
@@ -192,8 +195,7 @@ public class NewsEditorPage extends BasePage {
 
     public void checkCancelDialogText() {
         Allure.step("Проверка текста в диалоге отмены изменений");
-        String dialogText = "The changes won't be saved, do you really want to log out?";
-        onView(withText(dialogText)).check(matches(isDisplayed()));
+        onView(withText(CANCEL_DIALOG_TEXT)).check(matches(isDisplayed()));
     }
 
     public void confirmCancelDialog() {
@@ -208,7 +210,7 @@ public class NewsEditorPage extends BasePage {
 
     public void checkSavingFailedToast() {
         Allure.step("Проверка появления сообщения о сбое сохранения");
-        onView(withText("Saving failed. Try again later."))
+        onView(withText(ERROR_SAVING_FAILED))
                 .inRoot(new BasePage.ToastMatcher())
                 .check(matches(isDisplayed()));
     }

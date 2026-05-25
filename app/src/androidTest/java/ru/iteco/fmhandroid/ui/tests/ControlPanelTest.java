@@ -55,11 +55,11 @@ public class ControlPanelTest {
     @DisplayName("Сортировка в панели управления")
     @Description("Проверка изменения порядка новостей по дате в Control Panel")
     public void sortButtonInControlPanel_47() {
-        String initialDate = controlPanelPage.getFirstNewsDate();
+        String initialTitle = controlPanelPage.getFirstNewsTitle();
         controlPanelPage.clickSort();
-        controlPanelPage.checkFirstNewsDateChanged(initialDate);
+        controlPanelPage.checkFirstNewsTitleChanged(initialTitle);
         controlPanelPage.clickSort();
-        controlPanelPage.checkFirstNewsDate(initialDate);
+        controlPanelPage.checkFirstNewsTitle(initialTitle);
     }
 
     @Test

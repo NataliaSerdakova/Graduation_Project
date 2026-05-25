@@ -15,11 +15,11 @@ import ru.iteco.fmhandroid.R;
 
 public class NewsSectionPage extends BasePage {
 
+    public static final String CONTROL_PANEL_TITLE = "Control panel";
     private final int sortBtnId = R.id.sort_news_material_button;
     private final int filterBtnId = R.id.filter_news_material_button;
     private final int editBtnId = R.id.edit_news_material_button;
     private final int controlPanelNewsListId = R.id.news_list_recycler_view;
-    private final int newsRefreshBtnId = R.id.news_retry_material_button;
     private final int newsTitleId = R.id.news_item_title_text_view;
     private final int expandBtnId = R.id.view_news_item_image_view;
     private final int descriptionId = R.id.news_item_description_text_view;
@@ -64,19 +64,19 @@ public class NewsSectionPage extends BasePage {
     public void checkControlPanelIsLoaded() {
         Allure.step("Проверка: панель управления новостями загружена");
         onView(isRoot()).perform(waitDisplayed(controlPanelNewsListId, SHORT_TIMEOUT));
-        onView(withText("Control panel")).check(matches(isDisplayed()));
+        onView(withText(CONTROL_PANEL_TITLE)).check(matches(isDisplayed()));
         onView(withId(controlPanelNewsListId)).check(matches(isDisplayed()));
     }
 
     public void checkEmptyListAndRefreshButtonVisible() {
         Allure.step("Проверка: список пуст, отображается кнопка обновления");
-        onView(isRoot()).perform(waitDisplayed(newsRefreshBtnId, DEFAULT_TIMEOUT));
-        onView(withId(newsRefreshBtnId)).check(matches(isDisplayed()));
+        onView(isRoot()).perform(waitDisplayed(retryBtnId, DEFAULT_TIMEOUT));
+        onView(withId(retryBtnId)).check(matches(isDisplayed()));
     }
 
     public void clickRefresh() {
         Allure.step("Нажать кнопку обновления списка");
-        onView(withId(newsRefreshBtnId)).perform(click());
+        onView(withId(retryBtnId)).perform(click());
     }
 
     public void expandFirstNews() {

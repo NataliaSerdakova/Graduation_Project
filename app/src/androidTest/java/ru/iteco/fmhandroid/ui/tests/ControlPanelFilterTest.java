@@ -2,11 +2,14 @@ package ru.iteco.fmhandroid.ui.tests;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import java.time.LocalDate;
+
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.Epic;
@@ -28,15 +31,14 @@ import ru.iteco.fmhandroid.ui.page.NewsSectionPage;
 
 public class ControlPanelFilterTest {
 
-    @Rule
-    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
-
     private final LoginPage loginPage = new LoginPage();
     private final NavigationPage navigationPage = new NavigationPage();
     private final NewsSectionPage newsSectionPage = new NewsSectionPage();
     private final ControlPanelPage controlPanelPage = new ControlPanelPage();
     private final ControlPanelFilterPage filterPage = new ControlPanelFilterPage();
     private final CalendarPage calendarPage = new CalendarPage();
+    @Rule
+    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void setUp() {

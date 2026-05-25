@@ -12,10 +12,10 @@ import ru.iteco.fmhandroid.R;
 
 public class NavigationPage extends BasePage {
 
+    public static final String MENU_MAIN_TEXT = "Main";
+    public static final String MENU_NEWS_TEXT = "News";
+    public static final String MENU_ABOUT_TEXT = "About";
     private final int mainMenuBtnId = R.id.main_menu_image_button;
-    private final String menuMainText = "Main";
-    private final String menuNewsText = "News";
-    private final String menuAboutText = "About";
     private final int newsContainerId = R.id.all_news_cards_block_constraint_layout;
     private final int aboutVersionId = R.id.about_version_value_text_view;
     private final int aboutPrivacyPolicyId = R.id.about_privacy_policy_value_text_view;
@@ -35,17 +35,17 @@ public class NavigationPage extends BasePage {
 
     public void clickNews() {
         Allure.step("Выбрать в меню раздел 'News'");
-        onView(withText(menuNewsText)).perform(click());
+        onView(withText(MENU_NEWS_TEXT)).perform(click());
     }
 
     public void clickAbout() {
         Allure.step("Выбрать в меню раздел 'About'");
-        onView(withText(menuAboutText)).perform(click());
+        onView(withText(MENU_ABOUT_TEXT)).perform(click());
     }
 
     public void clickMain() {
         Allure.step("Выбрать в меню раздел 'Main'");
-        onView(withText(menuMainText)).perform(click());
+        onView(withText(MENU_MAIN_TEXT)).perform(click());
     }
 
     public void checkIsNewsPage() {
@@ -64,10 +64,10 @@ public class NavigationPage extends BasePage {
 
     public void checkMenuElementsDisplayed() {
         Allure.step("Проверка отображения элементов меню (Main, News, About)");
-        onView(isRoot()).perform(waitTextDisplayed(menuNewsText, SHORT_TIMEOUT));
-        onView(withText(menuMainText)).check(matches(isDisplayed()));
-        onView(withText(menuNewsText)).check(matches(isDisplayed()));
-        onView(withText(menuAboutText)).check(matches(isDisplayed()));
+        onView(isRoot()).perform(waitTextDisplayed(MENU_NEWS_TEXT, SHORT_TIMEOUT));
+        onView(withText(MENU_MAIN_TEXT)).check(matches(isDisplayed()));
+        onView(withText(MENU_NEWS_TEXT)).check(matches(isDisplayed()));
+        onView(withText(MENU_ABOUT_TEXT)).check(matches(isDisplayed()));
     }
 
     public void clickBack() {

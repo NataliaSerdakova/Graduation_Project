@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import io.qameta.allure.kotlin.Allure;
 
 public class CalendarPage extends BasePage {
-    private UiDevice device;
+    private final UiDevice device;
 
     public CalendarPage() {
         this.device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());

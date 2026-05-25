@@ -24,12 +24,11 @@ import ru.iteco.fmhandroid.ui.page.QuotesPage;
 
 public class QuotesTest {
 
-    @Rule
-    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
-
     private final LoginPage loginPage = new LoginPage();
     private final NavigationPage navigationPage = new NavigationPage();
     private final QuotesPage quotesPage = new QuotesPage();
+    @Rule
+    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void setUp() {

@@ -11,8 +11,8 @@ import androidx.test.uiautomator.UiSelector;
 import io.qameta.allure.kotlin.Allure;
 
 public class TimePage extends BasePage {
-    private UiDevice device;
     public static final String VALID_TIME_ERROR = "Enter a valid time";
+    private final UiDevice device;
 
     public TimePage() {
         this.device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());

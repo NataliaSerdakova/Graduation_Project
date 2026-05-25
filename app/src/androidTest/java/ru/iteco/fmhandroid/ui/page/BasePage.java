@@ -98,24 +98,6 @@ public class BasePage {
         };
     }
 
-    public static class ToastMatcher extends TypeSafeMatcher<Root> {
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("is toast");
-        }
-
-        @Override
-        public boolean matchesSafely(Root root) {
-            int type = root.getWindowLayoutParams().get().type;
-            if (type == WindowManager.LayoutParams.TYPE_TOAST ||
-                    type == WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY) {
-                IBinder windowToken = root.getDecorView().getWindowToken();
-                return windowToken != null;
-            }
-            return false;
-        }
-    }
-
     public static Matcher<View> withIndex(final Matcher<View> matcher, final int index) {
         return new TypeSafeMatcher<View>() {
             int currentIndex = 0;
@@ -130,27 +112,6 @@ public class BasePage {
                 return matcher.matches(view) && currentIndex++ == index;
             }
         };
-    }
-
-    protected String getTextFromView(Matcher<View> matcher, int index) {
-        final String[] text = new String[1];
-        onView(withIndex(matcher, index)).perform(new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isAssignableFrom(TextView.class);
-            }
-
-            @Override
-            public String getDescription() {
-                return "getting text by index";
-            }
-
-            @Override
-            public void perform(UiController uiController, View view) {
-                text[0] = ((TextView) view).getText().toString();
-            }
-        });
-        return text[0];
     }
 
     public static ViewAction waitTextChange(final Matcher<View> matcher, final String oldText, final long millis) {
@@ -188,6 +149,27 @@ public class BasePage {
         };
     }
 
+    protected String getTextFromView(Matcher<View> matcher, int index) {
+        final String[] text = new String[1];
+        onView(withIndex(matcher, index)).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(TextView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting text by index";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                text[0] = ((TextView) view).getText().toString();
+            }
+        });
+        return text[0];
+    }
+
     public int getCount(Matcher<View> matcher) {
         final int[] count = {0};
         onView(isRoot()).perform(new ViewAction() {
@@ -216,13 +198,37 @@ public class BasePage {
     public void waitForIdle(long millis) {
         onView(isRoot()).perform(new ViewAction() {
             @Override
-            public Matcher<View> getConstraints() { return isRoot(); }
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
             @Override
-            public String getDescription() { return "wait for " + millis + " ms"; }
+            public String getDescription() {
+                return "wait for " + millis + " ms";
+            }
+
             @Override
             public void perform(UiController uiController, View view) {
                 uiController.loopMainThreadForAtLeast(millis);
             }
         });
+    }
+
+    public static class ToastMatcher extends TypeSafeMatcher<Root> {
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("is toast");
+        }
+
+        @Override
+        public boolean matchesSafely(Root root) {
+            int type = root.getWindowLayoutParams().get().type;
+            if (type == WindowManager.LayoutParams.TYPE_TOAST ||
+                    type == WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY) {
+                IBinder windowToken = root.getDecorView().getWindowToken();
+                return windowToken != null;
+            }
+            return false;
+        }
     }
 }

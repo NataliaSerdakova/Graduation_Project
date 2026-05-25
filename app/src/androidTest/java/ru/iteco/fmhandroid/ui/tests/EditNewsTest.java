@@ -2,11 +2,14 @@ package ru.iteco.fmhandroid.ui.tests;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import java.time.LocalDate;
+
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.Epic;
@@ -29,9 +32,6 @@ import ru.iteco.fmhandroid.ui.page.TimePage;
 
 public class EditNewsTest {
 
-    @Rule
-    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
-
     private final LoginPage loginPage = new LoginPage();
     private final NavigationPage navigationPage = new NavigationPage();
     private final NewsSectionPage newsSectionPage = new NewsSectionPage();
@@ -39,6 +39,8 @@ public class EditNewsTest {
     private final CalendarPage calendarPage = new CalendarPage();
     private final TimePage timePage = new TimePage();
     private final NewsEditorPage newsEditorPage = new NewsEditorPage();
+    @Rule
+    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void setUp() {
@@ -48,11 +50,11 @@ public class EditNewsTest {
             loginPage.logout();
             loginPage.logInToTheSystem(DataHelper.getValidLogin(), DataHelper.getValidPassword());
         }
-            navigationPage.openNavigationMenu();
-            navigationPage.clickNews();
-            newsSectionPage.clickEdit();
-            newsSectionPage.checkControlPanelIsLoaded();
-        }
+        navigationPage.openNavigationMenu();
+        navigationPage.clickNews();
+        newsSectionPage.clickEdit();
+        newsSectionPage.checkControlPanelIsLoaded();
+    }
 
 
     @Test
@@ -288,7 +290,7 @@ public class EditNewsTest {
     @Test
     @DisplayName("Редактирование поля Описание")
     @Description("Изменение текста описания и проверка его отображения после сохранения")
-    public void editingTheDescriptionField_76 () {
+    public void editingTheDescriptionField_76() {
         String newDescription = "Unique Desc " + DataHelper.getRandomString(10);
         controlPanelPage.clickEditNews(0);
         newsEditorPage.checkEditNewsFormIsLoaded();

@@ -11,13 +11,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.not;
-
 import androidx.test.espresso.contrib.RecyclerViewActions;
-
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class ControlPanelPage extends BasePage {
+
+    public static final String CONTROL_PANEL_TITLE = "Control panel";
+    private final String DELETE_DIALOG_TEXT = "Are you sure you want to permanently delete the document? These changes cannot be reversed in the future.";
     private final int sortBtnId = R.id.sort_news_material_button;
     private final int filterBtnId = R.id.filter_news_material_button;
     private final int addNewsBtnId = R.id.add_news_image_view;
@@ -27,7 +28,6 @@ public class ControlPanelPage extends BasePage {
     private final int newsTitleId = R.id.news_item_title_text_view;
     private final int expandNewsBtnId = R.id.view_news_item_image_view;
     private final int newsDescriptionId = R.id.news_item_description_text_view;
-    private final String deleteDialogText = "Are you sure you want to permanently delete the document? These changes cannot be reversed in the future.";
     private final int controlPanelRefreshBtnId = R.id.control_panel_news_retry_material_button;
     private final int controlPanelContainerId = R.id.container_custom_app_bar_include_on_fragment_news_control_panel;
     private final int newsListId = R.id.news_list_recycler_view;
@@ -35,8 +35,8 @@ public class ControlPanelPage extends BasePage {
 
     public void checkControlPanelLoaded() {
         Allure.step("Проверка загрузки панели управления (Control Panel)");
-        onView(isRoot()).perform(waitTextDisplayed("Control panel", DEFAULT_TIMEOUT));
-        onView(withText("Control panel")).check(matches(isDisplayed()));
+        onView(isRoot()).perform(waitTextDisplayed(CONTROL_PANEL_TITLE, DEFAULT_TIMEOUT));
+        onView(withText(CONTROL_PANEL_TITLE)).check(matches(isDisplayed()));
     }
 
     public void clickSort() {
@@ -70,6 +70,18 @@ public class ControlPanelPage extends BasePage {
         return getTextFromView(withId(newsTitleId), 0);
     }
 
+    public void checkFirstNewsTitleChanged(String oldTitle) {
+        Allure.step("Проверка: заголовок первой новости изменился и больше не равен '" + oldTitle + "'");
+        onView(isRoot()).perform(waitTextChange(withIndex(withId(newsTitleId), 0), oldTitle, DEFAULT_TIMEOUT));
+        onView(withIndex(withId(newsTitleId), 0)).check(matches(not(withText(oldTitle))));
+    }
+
+    public void checkFirstNewsTitle(String expectedTitle) {
+        Allure.step("Проверка: заголовок первой новости равен '" + expectedTitle + "'");
+        onView(withIndex(withId(newsTitleId), 0))
+                .check(matches(withText(expectedTitle)));
+    }
+
     public void checkNewsWithTitleExists(String title) {
         Allure.step("Поиск новости с заголовком: " + title);
         onView(withId(newsListId))
@@ -86,7 +98,7 @@ public class ControlPanelPage extends BasePage {
 
     public void checkDeleteDialogDisplayed() {
         Allure.step("Проверка отображения диалога подтверждения удаления");
-        onView(withText(deleteDialogText)).check(matches(isDisplayed()));
+        onView(withText(DELETE_DIALOG_TEXT)).check(matches(isDisplayed()));
     }
 
     public void confirmDeletion() {

@@ -20,31 +20,32 @@ public class LoginPage extends BasePage {
     public static final String MAIN_SCREEN_TITLE = "News";
     public static final String ERROR_INVALID_DATA = "Something went wrong. Try again later.";
     public static final String ERROR_EMPTY_FIELDS = "Login and password cannot be empty";
-
-    private final int LOGIN_LAYOUT = R.id.login_text_input_layout;
-    private final int PASSWORD_LAYOUT = R.id.password_text_input_layout;
-    private final int ENTER_BUTTON = R.id.enter_button;
-    private final int AUTH_BUTTON = R.id.authorization_image_button;
+    public static final String LOGOUT_ACTION_TEXT = "Log out";
+    private static final String EDIT_TEXT_CLASS_NAME = "EditText";
+    private final int loginLayout = R.id.login_text_input_layout;
+    private final int passwordLayout = R.id.password_text_input_layout;
+    private final int enterButton = R.id.enter_button;
+    private final int authButton = R.id.authorization_image_button;
 
 
     public void logInToTheSystem(String login, String password) {
         Allure.step("Вход в систему с логином: " + login);
-        onView(isRoot()).perform(waitDisplayed(LOGIN_LAYOUT, DEFAULT_TIMEOUT));
+        onView(isRoot()).perform(waitDisplayed(loginLayout, DEFAULT_TIMEOUT));
         Allure.step("Ввод логина");
-        onView(allOf(isDescendantOfA(withId(LOGIN_LAYOUT)), withClassName(containsString("EditText"))))
+        onView(allOf(isDescendantOfA(withId(loginLayout)), withClassName(containsString(EDIT_TEXT_CLASS_NAME))))
                 .perform(replaceText(login));
         Allure.step("Ввод пароля");
-        onView(allOf(isDescendantOfA(withId(PASSWORD_LAYOUT)), withClassName(containsString("EditText"))))
+        onView(allOf(isDescendantOfA(withId(passwordLayout)), withClassName(containsString(EDIT_TEXT_CLASS_NAME))))
                 .perform(replaceText(password), closeSoftKeyboard()); // Закрыли ДО нажатия кнопки
         Allure.step("Нажатие кнопки входа");
-        onView(withId(ENTER_BUTTON)).perform(click());
+        onView(withId(enterButton)).perform(click());
     }
 
     public void logout() {
         Allure.step("Выход из системы");
-        onView(isRoot()).perform(waitDisplayed(AUTH_BUTTON, DEFAULT_TIMEOUT));
-        onView(withId(AUTH_BUTTON)).perform(click());
-        onView(allOf(withId(android.R.id.title), withText("Log out"))).perform(click());
+        onView(isRoot()).perform(waitDisplayed(authButton, DEFAULT_TIMEOUT));
+        onView(withId(authButton)).perform(click());
+        onView(allOf(withId(android.R.id.title), withText(LOGOUT_ACTION_TEXT))).perform(click());
     }
 
     public void verifyTextIsVisible(String text) {
@@ -55,8 +56,8 @@ public class LoginPage extends BasePage {
 
     public void verifyLoginPageIsDisplayed() {
         Allure.step("Проверка, что отображается страница логина");
-        onView(isRoot()).perform(waitDisplayed(ENTER_BUTTON, DEFAULT_TIMEOUT));
-        onView(withId(ENTER_BUTTON)).check(matches(isDisplayed()));
+        onView(isRoot()).perform(waitDisplayed(enterButton, DEFAULT_TIMEOUT));
+        onView(withId(enterButton)).check(matches(isDisplayed()));
     }
 
     public void checkErrorToast(String expectedText) {
@@ -68,7 +69,7 @@ public class LoginPage extends BasePage {
 
     public boolean isLoggedIn() {
         try {
-            onView(isRoot()).perform(waitDisplayed(AUTH_BUTTON, DEFAULT_TIMEOUT));
+            onView(isRoot()).perform(waitDisplayed(authButton, DEFAULT_TIMEOUT));
             return true;
         } catch (Throwable t) {
             return false;

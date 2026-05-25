@@ -25,13 +25,12 @@ import ru.iteco.fmhandroid.ui.page.NewsSectionPage;
 
 public class NewsSectionTest {
 
-    @Rule
-    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
-
     private final LoginPage loginPage = new LoginPage();
     private final NavigationPage navigationPage = new NavigationPage();
     private final NewsSectionPage newsSectionPage = new NewsSectionPage();
     private final NewsFilterPage newsFilterPage = new NewsFilterPage();
+    @Rule
+    public ActivityScenarioRule<AppActivity> activityRule = new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void setUp() {
